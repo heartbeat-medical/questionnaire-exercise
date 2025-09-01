@@ -1,0 +1,29 @@
+{
+  "name": "questionnaire-exercise",
+  "packageManager": "yarn@4.2.2",
+  "scripts": {
+    "lint": "eslint . --cache",
+    "lint:fix": "eslint . --fix --cache",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "bundle": "esbuild src/main.ts --bundle --sourcemap --outfile=dist/bundle.js --platform=node",
+    "start": "node dist/bundle.js",
+    "dev": "yarn run bundle && concurrently --raw --names \"esbuild,app\" \"yarn run bundle --watch\" \"node --watch dist/bundle.js\""
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.34.0",
+    "@types/node": "^24.3.0",
+    "concurrently": "^9.2.1",
+    "esbuild": "^0.25.9",
+    "eslint": "^9.34.0",
+    "globals": "^16.3.0",
+    "jiti": "^2.5.1",
+    "typescript": "^5.9.2",
+    "typescript-eslint": "^8.41.0",
+    "vitest": "^3.2.4"
+  },
+  "vitest": {
+    "include": ["test/**/*.test.ts"]
+  }
+}
