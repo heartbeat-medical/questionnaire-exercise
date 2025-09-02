@@ -25,7 +25,7 @@ Build a CLI-based Questionnaire engine that prompts users with a series of quest
 A questionnaire session should be completed with a summary of the user's responses.
 
 ### Requirements
-- The application question set should be configurable configuration file (e.g., JSON or YAML).
+- The application question-set should be configurable with configuration file (e.g., JSON or YAML).
 - Questions should be sequentially presented to the user.
 - Questions can be conditionally shown based on previous answers. (for example, Do you have a pet? If yes, ask what kind of pet)
 - The program should be cyclic. (i.e., after completing a questionnaire, the user should be able to start a new one without restarting the application).
