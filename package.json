@@ -1,6 +1,5 @@
 {
-  "name": "questionnaire-exercise",
-  "packageManager": "yarn@4.2.2",
+  "name": "heartbeat-questionnaire-exercise",
   "scripts": {
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --fix --cache",
@@ -9,7 +8,7 @@
     "test:watch": "vitest",
     "bundle": "esbuild src/main.ts --bundle --sourcemap --outfile=dist/bundle.js --platform=node",
     "start": "node dist/bundle.js",
-    "dev": "yarn run bundle && concurrently --raw --names \"esbuild,app\" \"yarn run bundle --watch\" \"node --watch dist/bundle.js\""
+    "dev": "npm run bundle && concurrently --raw --names \"esbuild,app\" \"npm run bundle -- --watch\" \"node --watch dist/bundle.js\""
   },
   "devDependencies": {
     "@eslint/js": "^9.34.0",
