@@ -51,8 +51,8 @@ A questionnaire session should be completed with a summary of the user's respons
 
 ### External assistance
 
-You may use external utility libraries if it helps you speed things up. Do share your reasoning if you decide to share something uncommon.
-We expect you to write the core logic yourself. You can use internet search or LLMs to clarify concepts or get unstuck, but please do not get the AI to write the code for you.
+- You may use external utility libraries if it helps you speed things up. Do share your reasoning if you decide to share something uncommon.
+- We expect you to write the core logic yourself. You can use internet search or LLMs to clarify concepts or get unstuck, but please do not get the AI to write the code for you.
 As it is obvious, it defeats the purpose of the exercise and would disqualify your submission.
 
 ### Process
