@@ -1,0 +1,32 @@
+[
+  {
+    "name": "q1",
+    "question": "What is your favorite color?",
+    "type": "choice",
+    "options": ["Red", "Blue", "Green", "Other"]
+  },
+  {
+    "name": "q2",
+    "question": "Please specify your favorite color:",
+    "type": "text",
+    "conditions": [[["q1", "Other"]]]
+  },
+  {
+    "name": "q3",
+    "question": "Do you like programming?",
+    "type": "yesno"
+  },
+  {
+    "name": "q4",
+    "question": "What is your favorite programming language?",
+    "type": "choice",
+    "options": ["JavaScript", "Python", "Go", "Rust"],
+    "conditions": [[["q3", "Yes"]]]
+  },
+  {
+    "name": "q5",
+    "question": "Do you enjoy TypeScript?",
+    "type": "yesno",
+    "conditions": [[["q3", "yes"]],[["q4", "JavaScript"]]]
+  }
+]
