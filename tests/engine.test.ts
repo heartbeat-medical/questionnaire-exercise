@@ -1,15 +1,75 @@
-import {describe, it, expect} from "vitest";
-import {QuestionnaireEngineFactory} from "../src/engine";
-import {createLogger} from "../src/logger";
+import { describe, expect, it, vi } from "vitest";
+import { QuestionnaireEngineFactory } from "../src/engine";
+import { createLogger } from "../src/logger";
 
-describe('Engine Tests', () => {
-  describe('MockEngine Tests', () => {
-    it('should run a mock session', async () => {
-      const engine = QuestionnaireEngineFactory.mockEngine(createLogger('TestEngine'))
+vi.mock("../src/logger", async (importActual) => {
+  const actual = await importActual<typeof import("../src/logger")>();
+  return {
+    ...actual,
+    createLogger: vi.fn().mockReturnValue({
+      debug: vi.fn(),
+      info: vi.fn(),
+      warn: vi.fn(),
+      error: vi.fn(),
+      child: vi.fn().mockReturnThis(),
+    }),
+  };
+});
+vi.mock("@inquirer/prompts", async (importActual) => {
+  const actual = await importActual<typeof import("@inquirer/prompts")>();
+  return {
+    ...actual,
+    confirm: vi.fn().mockResolvedValue(false),
+    input: vi.fn().mockResolvedValue("Test answer"),
+    select: vi.fn().mockResolvedValue("Test choice"),
+  };
+});
 
-      const sessionResult = await engine.runSession('test-session-1');
-      expect(sessionResult.json()).toBeTruthy()
-    })
-  })
+import { confirm, input, select } from "@inquirer/prompts";
+import { Question, QuestionType } from "../src/types";
 
-})
+describe("Engine Tests", () => {
+  const questions: Question[] = [
+    {
+      name: "q1",
+      question: "What is your favorite color?",
+      type: QuestionType.Choice,
+      options: ["Red", "Blue", "Green", "Other"],
+    },
+  ];
+
+  it("should run a mock session", async () => {
+    const engine = QuestionnaireEngineFactory.engine(
+      createLogger("TestEngine")
+    );
+    const sessionResult = await engine.runSession("test-session-1", questions);
+    expect(select).toHaveBeenCalled();
+    expect(sessionResult.json()).toEqual([
+      {
+        question: "What is your favorite color?",
+        answer: "Test choice",
+      },
+    ]);
+  });
+
+  it("should restart the questionnaire when prompted", async () => {
+    const engine = QuestionnaireEngineFactory.engine(
+      createLogger("TestEngineRestart")
+    );
+    await engine.runSession("test-session-2", [
+      { name: "q1", question: "Test?", type: QuestionType.Text },
+    ]);
+    expect(input).toHaveBeenCalled();
+    expect(confirm).toHaveBeenCalled();
+  });
+
+  it("should warn when no questions are provided", async () => {
+    const logger = createLogger("TestEngineRestart");
+
+    const engine = QuestionnaireEngineFactory.engine(logger);
+    await engine.runSession("test-session-2", []);
+    expect(logger.warn).toHaveBeenCalledWith(
+      "No questions provided for the questionnaire."
+    );
+  });
+});

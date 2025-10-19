@@ -23,6 +23,12 @@
     "vitest": "^3.2.4"
   },
   "vitest": {
-    "include": ["test/**/*.test.ts"]
+    "include": [
+      "test/**/*.test.ts"
+    ]
+  },
+  "dependencies": {
+    "@inquirer/prompts": "^7.9.0",
+    "zod": "^4.1.12"
   }
 }
