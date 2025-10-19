@@ -1,5 +1,19 @@
 import { input, select, confirm } from "@inquirer/prompts";
-import { Question, QuestionCondition, QuestionResponse } from "./types";
+import {
+  Question,
+  QuestionCondition,
+  QuestionResponse,
+  questionSchema,
+  QuestionType,
+} from "./types";
+
+export async function validateQuestions(questions: unknown) {
+  const result = await questionSchema.safeParseAsync(questions);
+  if (!result.success) {
+    throw new Error(`Invalid questions: ${result.error}`);
+  }
+  return result.data;
+}
 
 export function conditionsMet(
   answers: Map<string, QuestionResponse>,
@@ -25,13 +39,13 @@ export function promptQuestion(question: Question) {
     const { type, question: message, options } = question;
 
     switch (type) {
-      case "text":
+      case QuestionType.Text:
         return input({ message });
-      case "choice":
+      case QuestionType.Choice:
         return select({ message, choices: options || [] });
-      case "yesno":
+      case QuestionType.YesNo:
         return select({ message, choices: ["Yes", "No"] });
-      case "confirm":
+      case QuestionType.Confirm:
         return confirm({ message });
       default:
         throw new Error(

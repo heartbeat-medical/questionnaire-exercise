@@ -28,6 +28,7 @@
     ]
   },
   "dependencies": {
-    "@inquirer/prompts": "^7.9.0"
+    "@inquirer/prompts": "^7.9.0",
+    "zod": "^4.1.12"
   }
 }

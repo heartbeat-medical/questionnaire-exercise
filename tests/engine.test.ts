@@ -7,6 +7,7 @@ vi.mock("../src/logger", async (importActual) => {
   return {
     ...actual,
     createLogger: vi.fn().mockReturnValue({
+      debug: vi.fn(),
       info: vi.fn(),
       warn: vi.fn(),
       error: vi.fn(),
@@ -25,14 +26,14 @@ vi.mock("@inquirer/prompts", async (importActual) => {
 });
 
 import { confirm, input, select } from "@inquirer/prompts";
-import { Question } from "../src/types";
+import { Question, QuestionType } from "../src/types";
 
 describe("Engine Tests", () => {
   const questions: Question[] = [
     {
       name: "q1",
       question: "What is your favorite color?",
-      type: "choice",
+      type: QuestionType.Choice,
       options: ["Red", "Blue", "Green", "Other"],
     },
   ];
@@ -56,7 +57,7 @@ describe("Engine Tests", () => {
       createLogger("TestEngineRestart")
     );
     await engine.runSession("test-session-2", [
-      { name: "q1", question: "Test?", type: "text" },
+      { name: "q1", question: "Test?", type: QuestionType.Text },
     ]);
     expect(input).toHaveBeenCalled();
     expect(confirm).toHaveBeenCalled();

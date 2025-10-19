@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { Question, QuestionCondition, QuestionResponse } from "../src/types";
+import { Question, QuestionResponse, QuestionType } from "../src/types";
 import { buildResult, conditionsMet, promptQuestion } from "../src/utils";
 
 vi.mock("../src/utils", { spy: true });
@@ -21,18 +21,18 @@ describe("Utils Tests", () => {
       const selectQuestion = promptQuestion({
         name: "q1",
         question: "What is your favorite color?",
-        type: "choice",
+        type: QuestionType.Choice,
         options: ["Red", "Blue", "Green", "Other"],
       });
       const inputQuestion = promptQuestion({
         name: "q1",
         question: "What is your favorite color?",
-        type: "text",
+        type: QuestionType.Text,
       });
       const yesnoQuestion = promptQuestion({
         name: "q1",
         question: "Do you want to continue?",
-        type: "confirm",
+        type: QuestionType.Confirm,
       });
 
       await selectQuestion();
@@ -52,7 +52,7 @@ describe("Utils Tests", () => {
         {
           name: "q1",
           question: "Do you like programming?",
-          type: "yesno",
+          type: QuestionType.YesNo,
         },
       ];
 

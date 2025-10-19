@@ -27,6 +27,6 @@
     "name": "q5",
     "question": "Do you enjoy TypeScript?",
     "type": "yesno",
-    "conditions": [[["q3", "yes"]],[["q4", "JavaScript"]]]
+    "conditions": [[["q3", "Yes"]],[["q4", "JavaScript"]]]
   }
 ]

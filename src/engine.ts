@@ -6,7 +6,12 @@ import {
   QuestionResponse,
   Result,
 } from "./types";
-import { promptQuestion, buildResult, conditionsMet } from "./utils";
+import {
+  buildResult,
+  conditionsMet,
+  promptQuestion,
+  validateQuestions,
+} from "./utils";
 
 async function cycleQuestions(
   questions: Question[],
@@ -39,6 +44,9 @@ async function runQuestionaire(questions: Question[], logger: Logger) {
     logger.warn("No questions provided for the questionnaire.");
     return new Map<string, QuestionResponse>();
   }
+
+  await validateQuestions(questions);
+  // improvement: question types could be the inferred type from the zod schema
 
   const answers = new Map<string, QuestionResponse>();
 
