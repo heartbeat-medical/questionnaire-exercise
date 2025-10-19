@@ -2,8 +2,8 @@ import z from "zod";
 
 export type AndConditions = [Question["name"], QuestionResponse][];
 export type OrConditions = AndConditions[];
-export type YesNoresponse = "yes" | "no";
-export type QuestionResponse = string | YesNoresponse;
+export type YesNoresponse = "Yes" | "No";
+export type QuestionResponse = string | YesNoresponse | boolean;
 export enum QuestionType {
   Text = "text",
   Choice = "choice",

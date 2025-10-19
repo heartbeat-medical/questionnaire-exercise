@@ -39,7 +39,7 @@ async function cycleQuestions(
   }
 }
 
-async function runQuestionaire(questions: Question[], logger: Logger) {
+async function runQuestionnaire(questions: Question[], logger: Logger) {
   if (questions.length === 0) {
     logger.warn("No questions provided for the questionnaire.");
     return new Map<string, QuestionResponse>();
@@ -60,7 +60,7 @@ async function runQuestionaire(questions: Question[], logger: Logger) {
     if (continueResponse) {
       answers.clear();
     } else {
-      console.log("Thank you for completing the questionnaire!");
+      logger.info("Thank you for completing the questionnaire!");
       break;
     }
   }
@@ -74,7 +74,7 @@ export const QuestionnaireEngineFactory = {
         const cLogger = logger.child("runSession");
         cLogger.info("Running session.");
 
-        const answers = await runQuestionaire(questions, cLogger);
+        const answers = await runQuestionnaire(questions, cLogger);
 
         const result: Result = {
           id: sessionId,
@@ -82,7 +82,7 @@ export const QuestionnaireEngineFactory = {
             return buildResult(questions, answers);
           },
         };
-        return Promise.resolve(result);
+        return result;
       },
     };
   },

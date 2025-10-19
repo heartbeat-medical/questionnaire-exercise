@@ -24,7 +24,8 @@ start().catch((error) => {
   if (error instanceof Error && error.name === "ExitPromptError") {
     logger.error("Session terminated by user.");
     process.exit(1);
+  } else {
+    logger.error(`Application failed to start: ${error.message}`);
+    process.exit(1);
   }
-  logger.error(`Application failed to start: ${error.message}`);
-  process.exit(1);
 });
