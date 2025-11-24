@@ -60,7 +60,7 @@ A questionnaire session should be completed with a summary of the user's respons
 2. Create a new branch in your fork
 3. Commit on that branch
 4. When you are ready to submit, create a PR within your fork
-5. Invite @nuelsoft and @usamasulaiman to your private repo
+5. Invite [@nuelsoft](https://github.com/nuelsoft) and [@usamasulaiman](https://github.com/usamasulaiman) to your private repo
 6. We will comment on the PR
 7. You can either submit more code or we can discuss in the next interview
 8. Any questions, reach out to us!
